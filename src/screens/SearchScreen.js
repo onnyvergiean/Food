@@ -6,6 +6,7 @@ import SearchBar from '../components/SearchBar';
 const SearchScreen = () => {
     const [term , setTerm] = useState('')
     const [result, setResult] = useState([])
+    const [errorMessage, setErrorMessage] = useState('')
 
     const searchApi = async () => {
     try{
@@ -18,7 +19,7 @@ const SearchScreen = () => {
         })
             setResult(response.data.businesses)
         }catch(err){
-            console.log(err)
+            setErrorMessage('Something Went Wrong, Please Try Again')
         }  
     }
 
@@ -29,7 +30,7 @@ const SearchScreen = () => {
             onTermChange={setTerm}
             onTermSubmit={searchApi}
         />
-        <Text>Search Screen</Text>
+        {errorMessage ? <Text>{errorMessage}</Text> : null}
         <Text>We have found {result.length} result</Text>
     </View>
     )
